@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - ResumeX AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="flex items-center justify-center p-6"
+    style="display: flex; height: 100vh; justify-content: center; align-items: center;">
+    <div class="gradient-bg"></div>
+
+    <div class="glass-card p-8 w-full" style="max-width: 400px; padding: 2.5rem;">
+        <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+            <i data-lucide="sparkles" class="primary-text" style="color: var(--primary);"></i>
+            <span>ResumeX AI</span>
+        </div>
+
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Create Account</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">Start your journey to a better career today.</p>
+
+        <div id="error-box"
+            style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1.5rem; font-size: 0.875rem;">
+        </div>
+
+        <form id="register-form">
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Full
+                    Name</label>
+                <div style="position: relative;">
+                    <i data-lucide="user"
+                        style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); width: 1.25rem;"></i>
+                    <input type="text" id="name" required style="padding-left: 2.75rem;" placeholder="John Doe">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Email
+                    Address</label>
+                <div style="position: relative;">
+                    <i data-lucide="mail"
+                        style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); width: 1.25rem;"></i>
+                    <input type="email" id="email" required style="padding-left: 2.75rem;"
+                        placeholder="name@company.com">
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label
+                    style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Password</label>
+                <div style="position: relative;">
+                    <i data-lucide="lock"
+                        style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); width: 1.25rem;"></i>
+                    <input type="password" id="password" required style="padding-left: 2.75rem;" placeholder="••••••••">
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.875rem;">
+                Get Started <i data-lucide="arrow-right"></i>
+            </button>
+        </form>
+
+        <p style="margin-top: 2rem; text-align: center; color: var(--text-secondary); font-size: 0.875rem;">
+            Already have an account? <a href="login.html"
+                style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign in</a>
+        </p>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        lucide.createIcons();
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorBox = document.getElementById('error-box');
+
+            try {
+                await API.register({ name, email, password });
+                window.location.href = 'login.html';
+            } catch (err) {
+                errorBox.textContent = 'Registration failed. Email might already be in use.';
+                errorBox.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>
